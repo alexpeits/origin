@@ -1,0 +1,9 @@
+resolver: lts-20.10
+
+allow-newer: true
+
+packages:
+- .
+
+extra-deps:
+- higgledy-0.4.2.1
