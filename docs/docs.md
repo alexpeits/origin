@@ -27,6 +27,7 @@ extensions and add some imports:
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE KindSignatures #-}
@@ -172,7 +173,8 @@ data FlatConfigB f = FlatConfigB
     _fcDirB :: f String,
     _fcLogB :: f Bool
   }
-  deriving (Generic, B.FunctorB, B.TraversableB, B.ApplicativeB)
+  deriving stock Generic
+  deriving anyclass (B.FunctorB, B.TraversableB, B.ApplicativeB)
 ```
 
 I also derived some required instances that come from the `barbies` package.
@@ -349,19 +351,22 @@ data ConfigB f = ConfigB
     _cServiceB :: ServiceConfigB f,
     _cDirB :: f String
   }
-  deriving (Generic, B.FunctorB, B.TraversableB, B.ApplicativeB)
+  deriving stock Generic
+  deriving anyclass (B.FunctorB, B.TraversableB, B.ApplicativeB)
 
 data DbConfigB f = DbConfigB
   { _dcHostB :: f String,
     _dcPortB :: f Int
   }
-  deriving (Generic, B.FunctorB, B.TraversableB, B.ApplicativeB)
+  deriving stock Generic
+  deriving anyclass (B.FunctorB, B.TraversableB, B.ApplicativeB)
 
 data ServiceConfigB f = ServiceConfigB
   { _scPortB :: f Int,
     _scLogB :: f Bool
   }
-  deriving (Generic, B.FunctorB, B.TraversableB, B.ApplicativeB)
+  deriving stock Generic
+  deriving anyclass (B.FunctorB, B.TraversableB, B.ApplicativeB)
 ```
 
 To define the option parser, we need option parsers for every type inside it.
@@ -412,7 +417,8 @@ data ConfigH f = ConfigH
     _cServiceH :: HKD ServiceConfig f,
     _cDirH :: f String
   }
-  deriving (Generic, B.FunctorB, B.TraversableB, B.ApplicativeB)
+  deriving stock Generic
+  deriving anyclass (B.FunctorB, B.TraversableB, B.ApplicativeB)
 
 configOpt2 :: ConfigH Opt
 configOpt2 =
